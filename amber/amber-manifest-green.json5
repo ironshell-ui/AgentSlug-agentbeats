@@ -1,0 +1,49 @@
+{
+  manifest_version: "0.1.0",
+  program: {
+    image: "ghcr.io/jianhongtu/rcabench/rcabench-green-agent:latest",
+    entrypoint: [
+      "uv",
+      "run",
+      "green_agent_server.py",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8081"
+    ],
+    env: {
+      OPENAI_API_KEY: "${config.openai_api_key}",
+      PURPLE_AGENT_URL: "${config.purple_agent_url}",
+      PROXY_URL: "${slots.proxy.url}",
+      LOG_LEVEL: "INFO",
+      DOCKER_HOST: "unix:///var/run/docker.sock",
+    },
+    network: {
+      endpoints: [
+        { name: "endpoint", port: 8081 },
+      ],
+    },
+  },
+  config_schema: {
+    type: "object",
+    properties: {
+      openai_api_key: { type: "string", secret: true },
+      purple_agent_url: { type: "string" }
+    },
+    required: ["openai_api_key", "purple_agent_url"],
+    additionalProperties: false,
+  },
+  slots: {
+    proxy: { kind: "a2a" },
+  },
+  provides: {
+    a2a: { kind: "a2a", endpoint: "endpoint" },
+  },
+  exports: {
+    a2a: "a2a",
+  },
+  metadata: {
+    assessment_config: { "log_dir": "./logs", "task_ids": [1065], "num_tasks": 1 },
+    participant_roles: ["agent"]
+  }
+}

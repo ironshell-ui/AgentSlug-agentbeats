@@ -1,5 +1,6 @@
 # Environment variables
 .env
+amber/.env
 
 # Python
 __pycache__/
