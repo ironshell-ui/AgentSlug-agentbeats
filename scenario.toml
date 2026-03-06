@@ -3,7 +3,7 @@ image = "ghcr.io/shubham2345/rcabench/rcabench-green-agent:latest"
 env = {}
 
 [[participants]]
-image = "ghcr.io/ironshell-ui/claudecowork-agent:latest"
+image = "ghcr.io/ironshell-ui/claudecowork-agent:master"
 name = "purple_agent"
 env = { DEEPSEEK_API_KEY = "${DEEPSEEK_API_KEY}", KIMI_API_KEY = "${KIMI_API_KEY}", MINIMAX_API_KEY = "${MINIMAX_API_KEY}", SERPAPI_KEY = "${SERPAPI_KEY}", OPENAI_API_KEY = "${OPENAI_API_KEY}" }
 
